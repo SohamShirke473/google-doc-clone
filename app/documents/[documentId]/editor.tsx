@@ -12,7 +12,7 @@ import { useEditorStore } from '@/store/use-editor-store'
 import { TextStyle, FontFamily, Color, FontSize, LineHeight } from '@tiptap/extension-text-style'
 import Highlight from '@tiptap/extension-highlight'
 import TextAlign from '@tiptap/extension-text-align'
-import { Ruler } from '@/app/documents/[documentId]/ruler'
+import Ruler from '@/app/documents/[documentId]/ruler'
 
 
 
