@@ -12,7 +12,7 @@ export const Navbar = () => {
                 <h3 className="text-xl">Docs</h3>
             </div>
             <SearchInput />
-            <div><UserButton /></div>
+            <div className="flex gap-3 items-center pl-6"><UserButton /></div>
         </nav>
     );
 }
