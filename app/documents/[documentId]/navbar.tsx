@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/menubar";
 import { BoldIcon, FileIcon, FileJsonIcon, FilePenIcon, FilePlusIcon, GlobeIcon, ItalicIcon, PrinterIcon, Redo2Icon, StrikethroughIcon, TextIcon, Trash, UnderlineIcon, Undo2Icon, RemoveFormattingIcon } from "lucide-react";
 import { BsFilePdf } from "react-icons/bs";
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 export const Navbar = () => {
     const { editor } = useEditorStore()
     const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
@@ -57,8 +58,8 @@ export const Navbar = () => {
     };
 
     return (
-        <div className="flex items-center justify-between">
-            <nav className="flex items-center gap-2" >
+        <nav className="flex items-center justify-between">
+            <div className="flex items-center gap-2" >
 
                 <Link href="/"><Image src="/logo.svg" alt="logo" width={36} height={36} /></Link>
                 <div className="flex flex-col">
@@ -193,7 +194,15 @@ export const Navbar = () => {
                         </Menubar>
                     </div>
                 </div>
-            </nav>
-        </div>
+            </div>
+            <div className="flex gap-3 items-center pl-6">
+                <OrganizationSwitcher
+                    afterCreateOrganizationUrl="/"
+                    afterLeaveOrganizationUrl="/"
+                    afterSelectOrganizationUrl="/"
+                    afterSelectPersonalUrl="/" />
+                <UserButton />
+            </div>
+        </nav>
     )
 }

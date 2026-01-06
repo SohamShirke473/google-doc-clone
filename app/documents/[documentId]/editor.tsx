@@ -1,5 +1,6 @@
 'use client'
 
+import { useLiveblocksExtension, FloatingToolbar } from "@liveblocks/react-tiptap";
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import TaskList from '@tiptap/extension-task-list'
@@ -13,10 +14,13 @@ import { TextStyle, FontFamily, Color, FontSize, LineHeight } from '@tiptap/exte
 import Highlight from '@tiptap/extension-highlight'
 import TextAlign from '@tiptap/extension-text-align'
 import Ruler from '@/app/documents/[documentId]/ruler'
+import { Thread } from "@liveblocks/react-ui";
+import { Threads } from "./Threads";
 
 
 
 const Tiptap = () => {
+    const liveblocks = useLiveblocksExtension();
     const { setEditor } = useEditorStore()
     const editor = useEditor({
         onCreate({ editor }) {
@@ -51,7 +55,11 @@ const Tiptap = () => {
             },
         },
         extensions: [
-            StarterKit,
+            liveblocks,
+            StarterKit.configure({
+                // The Liveblocks extension comes with its own history handling
+                undoRedo: false,
+            }),
             TextAlign.configure({
                 types: ['heading', 'paragraph'],
             }),
@@ -94,6 +102,7 @@ const Tiptap = () => {
             <Ruler />
             <div className="min-w-max flex justify-center py-4 mx-auto">
                 <EditorContent editor={editor} />
+                <Threads editor={editor} />
             </div>
         </div>
     )

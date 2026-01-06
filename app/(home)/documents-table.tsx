@@ -9,6 +9,7 @@ interface DocumentsTableProps {
     status: PaginationStatus;
 }
 import { DocumentRow } from "./document-row";
+import { Button } from "@/components/ui/button";
 
 export const DocumentsTable = ({ documents, loadMore, status }: DocumentsTableProps) => {
     return (
@@ -45,6 +46,17 @@ export const DocumentsTable = ({ documents, loadMore, status }: DocumentsTablePr
                     )}
                 </Table>
             )}
+            <div className="flex items-center justify-center">
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => loadMore(5)}
+                    disabled={status !== "CanLoadMore"}
+                >
+                    {status === "CanLoadMore" ? "Load more" : "End of results"}
+                </Button>
+            </div>
         </div >
+
     );
 };
