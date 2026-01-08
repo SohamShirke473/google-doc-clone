@@ -27,8 +27,6 @@ export async function POST(req: Request) {
     if (!document) {
         return new Response("Unauthorized", { status: 401 });
     }
-    // console.log(user)
-    console.log(sessionClaims)
     const isOwner = document.ownerId === user.id;
     const isOrganizationMember = !!(
         document.organizationId && document.organizationId === (sessionClaims as any)?.o?.id
@@ -42,12 +40,12 @@ export async function POST(req: Request) {
     const nameToNumber = name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
     const hue = Math.abs(nameToNumber) % 360
     const color = `hsl(${hue}, 80%, 60%)`;
-
     const session = liveblocks.prepareSession(user.id, {
         userInfo: {
             name,
             avatar: user.imageUrl,
-            color,
+            color
+
         },
     });
     session.allow(room, session.FULL_ACCESS);

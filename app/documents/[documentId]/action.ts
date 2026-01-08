@@ -16,7 +16,7 @@ export async function getUsers() {
     const clerk = await clerkClient();
 
     const response = await clerk.users.getUserList({
-        organizationId: [sessionClaims?.org_id as string],
+        organizationId: [(sessionClaims as any)?.o?.id as string],
     });
 
     const users = response.data.map((user) => ({

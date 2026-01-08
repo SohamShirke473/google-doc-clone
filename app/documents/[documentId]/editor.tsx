@@ -14,12 +14,15 @@ import { TextStyle, FontFamily, Color, FontSize, LineHeight } from '@tiptap/exte
 import Highlight from '@tiptap/extension-highlight'
 import TextAlign from '@tiptap/extension-text-align'
 import Ruler from '@/app/documents/[documentId]/ruler'
-import { Thread } from "@liveblocks/react-ui";
-import { Threads } from "./Threads";
+import { Threads } from "./threads";
+import { useStorage } from "@liveblocks/react";
+import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
 
 
 
 const Tiptap = () => {
+    const leftMargin = useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
+    const rightMargin = useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT;
     const liveblocks = useLiveblocksExtension();
     const { setEditor } = useEditorStore()
     const editor = useEditor({
@@ -49,7 +52,7 @@ const Tiptap = () => {
         },
         editorProps: {
             attributes: {
-                style: `padding-left: 56px; padding-right: 56px;`,
+                style: `padding-left: ${leftMargin ?? LEFT_MARGIN_DEFAULT}px; padding-right: ${rightMargin ?? RIGHT_MARGIN_DEFAULT}px;`,
                 class:
                     'tiptap focus:outline-none border bg-white min-h-[1054px] w-[816px] pt-10 pb-10 cursor-text',
             },
@@ -78,22 +81,6 @@ const Tiptap = () => {
             LineHeight,
             Highlight.configure({ multicolor: true }),
         ],
-        // content: `
-        // <table>
-        //   <tbody>
-        //     <tr>
-        //       <th>Name</th>
-        //       <th colspan="3">Description</th>
-        //     </tr>
-        //     <tr>
-        //       <td>Cyndi Lauper</td>
-        //       <td>Singer</td>
-        //       <td>Songwriter</td>
-        //       <td>Actress</td>
-        //     </tr>
-        //   </tbody>
-        // </table>
-        // `,
         immediatelyRender: false,
     })
 
