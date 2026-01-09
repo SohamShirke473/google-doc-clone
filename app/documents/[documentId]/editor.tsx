@@ -18,12 +18,17 @@ import { Threads } from "./threads";
 import { useStorage } from "@liveblocks/react";
 import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
 
+interface EditorProps {
+    initialContent?: string | undefined;
+}
 
-
-const Tiptap = () => {
+const Tiptap = ({ initialContent }: EditorProps) => {
     const leftMargin = useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
     const rightMargin = useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT;
-    const liveblocks = useLiveblocksExtension();
+    const liveblocks = useLiveblocksExtension({
+        initialContent: initialContent || "",
+        offlineSupport_experimental: true,
+    });
     const { setEditor } = useEditorStore()
     const editor = useEditor({
         onCreate({ editor }) {
