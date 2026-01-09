@@ -1,3 +1,5 @@
+"use client";
+
 import { useThreads } from "@liveblocks/react/suspense";
 import {
     AnchoredThreads,

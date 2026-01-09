@@ -14,7 +14,7 @@ import { TextStyle, FontFamily, Color, FontSize, LineHeight } from '@tiptap/exte
 import Highlight from '@tiptap/extension-highlight'
 import TextAlign from '@tiptap/extension-text-align'
 import Ruler from '@/app/documents/[documentId]/ruler'
-import { Threads } from "./threads";
+import { Threads } from "@/app/documents/[documentId]/threads";
 import { useStorage } from "@liveblocks/react";
 import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
 
