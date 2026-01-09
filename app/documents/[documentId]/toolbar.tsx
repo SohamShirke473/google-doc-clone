@@ -57,7 +57,7 @@ import {
 } from "lucide-react";
 import { SketchPicker } from "react-color";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 
 const LineHeightButton = () => {
@@ -90,9 +90,11 @@ const LineHeightButton = () => {
                         key={label}
                         onClick={() => {
                             editor.chain().focus();
-                            value
-                                ? editor.chain().focus().setLineHeight(value).run()
-                                : editor.chain().focus().unsetLineHeight().run();
+                            if (value) {
+                                editor.chain().focus().setLineHeight(value).run();
+                            } else {
+                                editor.chain().focus().unsetLineHeight().run();
+                            }
                         }}
                         className={cn(
                             "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
@@ -113,10 +115,10 @@ const DEFAULT_FONT_SIZE = "16";
 const FontSizeButton = () => {
     const { editor } = useEditorStore();
 
-    const getCurrentFontSize = () => {
+    const getCurrentFontSize = useCallback(() => {
         const size = editor?.getAttributes("textStyle")?.fontSize;
         return size ? size.replace("px", "") : DEFAULT_FONT_SIZE;
-    };
+    }, [editor]);
 
     const [fontSize, setFontSize] = useState(getCurrentFontSize);
     const [inputValue, setInputValue] = useState(fontSize);
@@ -139,7 +141,7 @@ const FontSizeButton = () => {
             editor.off("selectionUpdate", update);
             editor.off("transaction", update);
         };
-    }, [editor, isEditing]);
+    }, [editor, isEditing, getCurrentFontSize]);
 
     const applyFontSize = (value: string) => {
         const size = parseInt(value, 10);
